@@ -3,9 +3,7 @@
 
 
 ## Overview
-
-A tutorial of method for causality learning: score-based.
-However, the concepts regarding markov equivence class \& mini adjustment set are shared with other methods reagarding causality learning.
+This repository provides a tutorial on score-based methods for causality learning. It also covers concepts such as Markov equivalence class and minimal adjustment set, which are applicable to other causality learning methods.
 
 
 ## Table of Contents
@@ -15,14 +13,12 @@ However, the concepts regarding markov equivence class \& mini adjustment set ar
 
 
 ## Tutorial:
-The [tutorial](./CausalInference2_score_based_causal_structural_learning.pdf) is given in a pdf file:
+The tutorial is available in a PDF file: 
 `CausalInference2_score_based_causal_structural_learning.pdf`
 
 ## Data:
-The tutorial used stimulated data (see in the folder 'Data'). The way to get the stimulated data for such algorithm has also been included in the code provided in the appendix.
-Can also be seen in the [separate code](./CI2.Rmd) file: `CI2.Rmd`.
+The tutorial uses simulated data, which can be found in the `Data` folder. The process for generating this simulated data is included in the code provided in the appendix and can also be found in the separate code file: `CI2.Rmd`.
 
 
 ## Code
-Code is included in the appendix of the tutorial. Can also be seen in the [separate code](./CI2.Rmd) file: `CI2.Rmd`.
-`
+The code is included in the appendix of the tutorial and is also available in the separate code file: `CI2.Rmd`.
