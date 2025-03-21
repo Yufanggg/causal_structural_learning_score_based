@@ -1,0 +1,91 @@
+---
+title: "CI2"
+author: "Yufang"
+date: "2024-12-04"
+output: pdf_document
+---
+
+# generate simulated data for the given DAGs "toy example"
+```{r, echo=TRUE}
+rm(list = ls())
+library(igraph)
+library(graph)
+library(pcalg)
+adj_matrix = matrix(c(0, 1, 0, 0, 0, 1, 0, 1,
+                    0, 0, 1, 0, 1, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 1, 0, 1,
+                    0, 0, 0, 0, 0, 0, 1, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0), nrow = 8, byrow = TRUE
+                    )
+colnames(adj_matrix) = paste0("X", 1:8); rownames(adj_matrix) = paste0("X", 1:8)
+## Create igraph object
+igraph_dag <- graph_from_adjacency_matrix(adj_matrix, mode = "directed")
+# Analyze or manipulate the DAG directly using igraph
+plot(igraph_dag, main = "DAG using igraph")
+DAG <- igraph.to.graphNEL(igraph_dag)
+sim_data_non_normal <- rmvDAG(n = 100, dag = DAG, errDist = "normal")  # normal-distribution errors
+cpdag = dag2cpdag(adj_matrix)
+
+rm(adj_matrix,igraph_dag)#, DAG
+```
+# using the observational data for causal structural discovery
+```{r, echo=TRUE}
+observationalData = read.csv("./Data/simuObs.csv")
+IntData = rbind(observationalData)
+IntTarget = list(integer(0))
+
+# define a score object
+scoreObs = new("GaussL0penIntScore", data = IntData, targets = IntTarget, 
+               target.index = c(rep(as.integer(1), nrow(observationalData))))
+giesObs.fit <- gies(scoreObs)
+
+par(mfrow=c(1,2))
+plot(giesObs.fit$essgraph, main = "Estimated ess. graph")
+plot(DAG, main = "True DAG")
+```
+
+
+# using the observational & interventional data for causal structural discovery
+```{r, echo=TRUE}
+observationalData = read.csv("./Data/simuObs.csv")
+targetV3 = read.csv("./Data/targetV3.csv")
+targetV5 = read.csv("./Data/targetV5.csv")
+IntData = rbind(observationalData, targetV3, targetV5)
+IntTarget = list(integer(0), 3, 5)
+
+# define a score object
+scoreInt = new("GaussL0penIntScore", data = IntData, targets = IntTarget, 
+               target.index = c(rep(as.integer(1), nrow(observationalData)),
+                                rep(as.integer(2), nrow(targetV3)),
+                                rep(as.integer(3), nrow(targetV5))))
+giesInt.fit <- gies(scoreInt)
+
+par(mfrow=c(1,3))
+plot(giesObs.fit$essgraph, main = "Estimated CPDAG under \n observational data")
+plot(giesInt.fit$essgraph, main = "Estimated CPDAG under \n observetional & X3 & X5 \n being manipulatde")
+plot(DAG, main = "True DAG")
+```
+
+# graph metric
+```{r, echo=TRUE}
+essgraphObs = giesObs.fit$essgraph
+adj_matrixObs = as(essgraphObs, "matrix")
+graph_igraphObs = graph_from_adjacency_matrix(adj_matrixObs, mode = "directed")
+graph_nelObs = igraph.to.graphNEL(graph_igraphObs)
+shdObs.val = shd(graph_nelObs, DAG)
+shdObs.val
+
+essgraphInt = giesInt.fit$essgraph
+adj_matrixInt = as(essgraphInt, "matrix")
+graph_igraphInt = graph_from_adjacency_matrix(adj_matrixInt, mode = "directed")
+graph_nelInt = igraph.to.graphNEL(graph_igraphInt)
+
+shdInt.val = shd(graph_nelInt, DAG)
+shdInt.val
+
+shdInt.c = shd(graph_nelObs, graph_nelInt)
+shdInt.c
+```
