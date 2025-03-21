@@ -9,11 +9,18 @@ However, the concepts regarding markov equivence class \& mini adjustment set ar
 
 
 ## Table of Contents
+- [Tutorial](#tutorial)
 - [Data](#data)
 - [Code](#code)
-  
+
+
+## Tutorial:
+The [tutorial](./CausalInference2_score_based_causal_structural_learning.pdf) is given in a pdf file.
+
 ## Data:
 The tutorial used stimulated data. The way to get the stimulated data for such algorithm has also been included in the code provided in the appendix.
+Can also be seen in the [separate code](./DOE.Rmd) file.
+
 
 ## Code
-Code is included in the appendix of the tutorial.
+Code is included in the appendix of the tutorial. Can also be seen in the [separate code](./DOE.Rmd) file.
