@@ -13,12 +13,12 @@ This repository provides a tutorial on score-based methods for causality learnin
 
 
 ## Tutorial:
-The tutorial is available in a PDF file: 
+The tutorial is available in a [PDF](./CausalInference2_score_based_causal_structural_learning.pdf) file: 
 `CausalInference2_score_based_causal_structural_learning.pdf`
 
 ## Data:
-The tutorial uses simulated data, which can be found in the `Data` folder. The process for generating this simulated data is included in the code provided in the appendix and can also be found in the separate code file: `CI2.Rmd`.
+The tutorial uses simulated data, which can be found in the [Data](./Data/)folder. The process for generating this simulated data is included in the code provided in the appendix and can also be found in the separate code file: `CI2.Rmd`.
 
 
 ## Code
-The code is included in the appendix of the tutorial and is also available in the separate code file: `CI2.Rmd`.
+The code is included in the appendix of the tutorial and is also available in the separate [code](./CI2.Rmd) file: `CI2.Rmd`.
