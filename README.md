@@ -19,7 +19,7 @@ The [tutorial](./CausalInference2_score_based_causal_structural_learning.pdf) is
 `CausalInference2_score_based_causal_structural_learning.pdf`
 
 ## Data:
-The tutorial used stimulated data. The way to get the stimulated data for such algorithm has also been included in the code provided in the appendix.
+The tutorial used stimulated data (see in the folder 'Data'). The way to get the stimulated data for such algorithm has also been included in the code provided in the appendix.
 Can also be seen in the [separate code](./CI2.Rmd) file: `CI2.Rmd`.
 
 
